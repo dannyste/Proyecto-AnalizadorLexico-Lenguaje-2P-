@@ -9,18 +9,16 @@ main=do
    tablaSimb <- readFile "TablaDeSimbolos.txt"
    --print(tablaSimb)
    let tuplasTablaSimbolos = convertirTablaEnTuplas(tablaSimb)
-   print(tuplasTablaSimbolos)
+   --print(tuplasTablaSimbolos)
    let str = "************* Analisis Lexico ************\n"
    writeFile "ResultadoAnalisis.txt" (str)
-   print(str)
-   print(f)
-   appendFile "ResultadoAnalisis.txt" (f ++ "\n")   
-   let arch = quitarIncludes(f)
-   print(arch)
-   let pc=quitarComentarioM(arch)
-   print(pc)
-   let un=quitarComentarioL(pc)
-   print(un)
+   --appendFile "ResultadoAnalisis.txt" (f ++ "\n")   
+   let f1 = quitarIncludes(f)
+   let f2 = quitarComentarioM(f1)
+   let f3 = quitarComentarioL(f2)
+   let pb = sacarPalabras(f3,[])
+   --print(f3)
+   print(pb)
 
 
 convertirTablaEnTuplas::[Char]->[([Char],[Char])]
@@ -88,3 +86,10 @@ buscaCierreComentarioL lista = do
 	if (null(lista)) then []
 	else if (list=="\n") then quitarComentarioL(drop 1 lista)
 	else buscaCierreComentarioL(tail(lista))
+	
+sacarPalabras::([Char],[Char])->[Char]
+sacarPalabras (lista,l) = do
+	let list = take 1 lista
+	if (null(lista)) then []
+	else if ((list>="a" && list<="z") || (list>="A" && list<="Z") || ((null(l))==False && list>="0" && list<="9")) then sacarPalabras(tail(lista),(l++list))
+	else l ++ [' '] ++ sacarPalabras(tail(lista),[])
