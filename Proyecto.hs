@@ -90,6 +90,20 @@ buscaCierreComentarioL lista = do
 sacarPalabras::([Char],[Char])->[Char]
 sacarPalabras (lista,l) = do
 	let list = take 1 lista
-	if (null(lista)) then []
+	if (null(lista)) then [] 
 	else if ((list>="a" && list<="z") || (list>="A" && list<="Z") || ((null(l))==False && list>="0" && list<="9")) then sacarPalabras(tail(lista),(l++list))
-	else l ++ [' '] ++ sacarPalabras(tail(lista),[])
+	else if ((list==" " || list=="\n" || list=="\t") && null(l)==True) then sacarPalabras(tail(lista),[])
+	else if ((list==" " || list=="\n" || list=="\t") && null(l)==False) then l ++ [','] ++ sacarPalabras(tail(lista),[])
+	else if (null(l)==False) then l ++ [','] ++ sacarSimbolos(lista,[])
+	else sacarSimbolos(lista,[])
+	
+sacarSimbolos::([Char],[Char])->[Char]
+sacarSimbolos (lista,l) = do
+	let list = take 1 lista
+	if (null(lista)) then []
+	else if ((list==" " || list=="\n" || list=="\t") && null(l)==True) then sacarSimbolos(tail(lista),[])
+	else if ((list==" " || list=="\n" || list=="\t") && null(l)==False) then l ++ [','] ++ sacarSimbolos(tail(lista),[])
+	else if (list=="&" || list =="|") then sacarSimbolos(tail(lista),(l++list))
+	else if ((list < "a" || list > "z") && (list<"A" || list>"Z")) then list ++ [','] ++ sacarSimbolos(tail(lista),[])
+	else if (null(l)==False) then l ++ [','] ++ sacarPalabras(lista,[])
+	else sacarPalabras(lista,[])
