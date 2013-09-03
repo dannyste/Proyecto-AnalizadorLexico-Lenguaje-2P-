@@ -4,20 +4,20 @@ import Data.Char
 
 main::IO()
 main=do
-   f <- readFile "testFile.c"
+   --f <- readFile "testFile.c"
+   f <- readFile "factorial.c"
    tablaSimb <- readFile "TablaDeSimbolos.txt"
    let tuplasTablaSimbolos = convertirTablaEnTuplas(tablaSimb)
    let str = "************* Analisis Lexico ************\n"
    writeFile "ResultadoAnalisis.txt" (str)   
-   let f1 = quitarIncludes(f)
-   let f2 = quitarComentarioM(f1)
-   let f3 = quitarComentarioL(f2)
+   let f1 = quitarComentarioM(f)
+   let f2 = quitarComentarioL(f1)
+   let f3 = quitarIncludes(f2)   
    let f4 = quitarTextoDeComillas(f3)
    let pb = sacarPalabras(f4,[])
-   print(pb)   
    let listaDef = analisis(pb,tuplasTablaSimbolos)
    print(listaDef)
-      appendFile "ResultadoAnalisis.txt" (imprimir(listaDef) ++ "\n")   
+   appendFile "ResultadoAnalisis.txt" (imprimir(listaDef) ++ "\n")   
 
 convertirTablaEnTuplas::[Char]->[([Char],[Char])]
 convertirTablaEnTuplas lista = do
