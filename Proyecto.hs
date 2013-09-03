@@ -1,4 +1,3 @@
-
 import System.Random
 import System.IO
 import Data.Char
@@ -13,7 +12,8 @@ main=do
    let f1 = quitarIncludes(f)
    let f2 = quitarComentarioM(f1)
    let f3 = quitarComentarioL(f2)
-   let pb = sacarPalabras(f3,[])
+   let f4 = quitarTextoDeComillas(f3)
+   let pb = sacarPalabras(f4,[])
    print(pb)   
    let listaDef = analisis(pb,tuplasTablaSimbolos)
    print(listaDef)
@@ -85,6 +85,20 @@ buscaCierreComentarioL lista = do
 	else if (list=="\n") then quitarComentarioL(drop 1 lista)
 	else buscaCierreComentarioL(tail(lista))
 	
+quitarTextoDeComillas::[Char]->[Char]
+quitarTextoDeComillas lista = do
+	let list = take 1 lista
+	if (null(lista)) then []
+	else if (list=="\"") then list ++ buscarCierreComillas(tail(lista))
+	else [head(lista)] ++ quitarTextoDeComillas(tail(lista)) 
+	
+buscarCierreComillas::[Char]->[Char]
+buscarCierreComillas lista = do
+	let list = take 1 lista
+	if (null(lista)) then []
+	else if (list=="\"") then list ++ quitarTextoDeComillas(tail(lista))
+	else buscarCierreComillas(tail(lista))
+	
 sacarPalabras::([Char],[Char])->[Char]
 sacarPalabras (lista,l) = do
 	let list = take 1 lista
@@ -114,7 +128,6 @@ analisis (lista,tablaSimb) = do
 	let cola = snd(tuplaPalabra)
 	if(null(cola)) then []
 	else [cmpConTablaSimb(palabra,tablaSimb)]++analisis(cola,tablaSimb)
-
 
 cmpConTablaSimb::([Char],[([Char],[Char])])->([Char],[Char])
 cmpConTablaSimb (palabra,tablaSimbolos)= do
