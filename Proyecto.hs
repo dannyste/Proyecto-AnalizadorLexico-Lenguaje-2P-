@@ -7,19 +7,17 @@ main::IO()
 main=do
    f <- readFile "testFile.c"
    tablaSimb <- readFile "TablaDeSimbolos.txt"
-   --print(tablaSimb)
    let tuplasTablaSimbolos = convertirTablaEnTuplas(tablaSimb)
-   --print(tuplasTablaSimbolos)
    let str = "************* Analisis Lexico ************\n"
-   writeFile "ResultadoAnalisis.txt" (str)
-   --appendFile "ResultadoAnalisis.txt" (f ++ "\n")   
+   writeFile "ResultadoAnalisis.txt" (str)   
    let f1 = quitarIncludes(f)
    let f2 = quitarComentarioM(f1)
    let f3 = quitarComentarioL(f2)
    let pb = sacarPalabras(f3,[])
-   --print(f3)
-   print(pb)
-
+   print(pb)   
+   let listaDef = analisis(pb,tuplasTablaSimbolos)
+   print(listaDef)
+   --appendFile "ResultadoAnalisis.txt" (listaDef ++ "\n")   
 
 convertirTablaEnTuplas::[Char]->[([Char],[Char])]
 convertirTablaEnTuplas lista = do
@@ -107,3 +105,20 @@ sacarSimbolos (lista,l) = do
 	else if ((list < "a" || list > "z") && (list<"A" || list>"Z")) then list ++ [','] ++ sacarSimbolos(tail(lista),[])
 	else if (null(l)==False) then l ++ [','] ++ sacarPalabras(lista,[])
 	else sacarPalabras(lista,[])
+	
+{- lista => una lista del archivo con las palabras separadas por comas -}
+analisis::([Char],[([Char],[Char])])->[([Char],[Char])]
+analisis (lista,tablaSimb) = do 
+	let tuplaPalabra = findFST(lista,"")
+	let palabra = fst(tuplaPalabra)
+	let cola = snd(tuplaPalabra)
+	if(null(cola)) then []
+	else [cmpConTablaSimb(palabra,tablaSimb)]++analisis(cola,tablaSimb)
+
+
+cmpConTablaSimb::([Char],[([Char],[Char])])->([Char],[Char])
+cmpConTablaSimb (palabra,tablaSimbolos)= do
+	let tupla = head(tablaSimbolos)
+	if(null(tablaSimbolos)) then ("identificador",palabra)
+	else if(palabra==snd(tupla)) then tupla
+	else cmpConTablaSimb(palabra,tail(tablaSimbolos))
