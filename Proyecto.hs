@@ -4,20 +4,22 @@ import Data.Char
 
 main::IO()
 main=do
-   --f <- readFile "testFile.c"
-   f <- readFile "factorial.c"
+   f <- readFile "2003t1.c"
+   --f <- readFile "multiNum.c"
+   --f <- readFile "triangulo.c"
+   --f <- readFile "factorial.c"
    tablaSimb <- readFile "TablaDeSimbolos.txt"
-   let tuplasTablaSimbolos = convertirTablaEnTuplas(tablaSimb)
-   let str = "************* Analisis Lexico ************\n"
-   writeFile "ResultadoAnalisis.txt" (str)   
+   let tuplasTablaSimbolos = convertirTablaEnTuplas(tablaSimb)  
    let f1 = quitarComentarioM(f)
    let f2 = quitarComentarioL(f1)
    let f3 = quitarIncludes(f2)   
    let f4 = quitarTextoDeComillas(f3)
-   let pb = sacarPalabras(f4,[])
-   let listaDef = analisis(pb,tuplasTablaSimbolos)
-   print(listaDef)
-   appendFile "ResultadoAnalisis.txt" (imprimir(listaDef) ++ "\n")   
+   let f5 = sacarPalabras(f4,[])
+   --let listaDef = analisis(F,tuplasTablaSimbolos)
+   print(f5)
+   let str = "************* Analisis Lexico ************\n"
+   writeFile "ResultadoAnalisis.txt" (str) 
+   --appendFile "ResultadoAnalisis.txt" (imprimir(listaDef) ++ "\n")   
 
 convertirTablaEnTuplas::[Char]->[([Char],[Char])]
 convertirTablaEnTuplas lista = do
@@ -105,8 +107,8 @@ sacarPalabras (lista,l) = do
 	if (null(lista)) then [] 
 	else if ((list>="a" && list<="z") || (list>="A" && list<="Z") || ((null(l))==False && list>="0" && list<="9")) then sacarPalabras(tail(lista),(l++list))
 	else if ((list==" " || list=="\n" || list=="\t") && null(l)==True) then sacarPalabras(tail(lista),[])
-	else if ((list==" " || list=="\n" || list=="\t") && null(l)==False) then l ++ [','] ++ sacarPalabras(tail(lista),[])
-	else if (null(l)==False) then l ++ [','] ++ sacarSimbolos(lista,[])
+	else if ((list==" " || list=="\n" || list=="\t") && null(l)==False) then l ++ [' '] ++ sacarPalabras(tail(lista),[])
+	else if (null(l)==False) then l ++ [' '] ++ sacarSimbolos(lista,[])
 	else sacarSimbolos(lista,[])
 	
 sacarSimbolos::([Char],[Char])->[Char]
@@ -114,10 +116,10 @@ sacarSimbolos (lista,l) = do
 	let list = take 1 lista
 	if (null(lista)) then []
 	else if ((list==" " || list=="\n" || list=="\t") && null(l)==True) then sacarSimbolos(tail(lista),[])
-	else if ((list==" " || list=="\n" || list=="\t") && null(l)==False) then l ++ [','] ++ sacarSimbolos(tail(lista),[])
+	else if ((list==" " || list=="\n" || list=="\t") && null(l)==False) then l ++ [' '] ++ sacarSimbolos(tail(lista),[])
 	else if (list=="&" || list =="|") then sacarSimbolos(tail(lista),(l++list))
-	else if ((list < "a" || list > "z") && (list<"A" || list>"Z")) then list ++ [','] ++ sacarSimbolos(tail(lista),[])
-	else if (null(l)==False) then l ++ [','] ++ sacarPalabras(lista,[])
+	else if ((list < "a" || list > "z") && (list<"A" || list>"Z")) then list ++ [' '] ++ sacarSimbolos(tail(lista),[])
+	else if (null(l)==False) then l ++ [' '] ++ sacarPalabras(lista,[])
 	else sacarPalabras(lista,[])
 	
 {- lista => una lista del archivo con las palabras separadas por comas -}
