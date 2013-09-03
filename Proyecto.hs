@@ -17,7 +17,7 @@ main=do
    print(pb)   
    let listaDef = analisis(pb,tuplasTablaSimbolos)
    print(listaDef)
-   --appendFile "ResultadoAnalisis.txt" (listaDef ++ "\n")   
+      appendFile "ResultadoAnalisis.txt" (imprimir(listaDef) ++ "\n")   
 
 convertirTablaEnTuplas::[Char]->[([Char],[Char])]
 convertirTablaEnTuplas lista = do
@@ -135,3 +135,9 @@ cmpConTablaSimb (palabra,tablaSimbolos)= do
 	if(null(tablaSimbolos)) then ("identificador",palabra)
 	else if(palabra==snd(tupla)) then tupla
 	else cmpConTablaSimb(palabra,tail(tablaSimbolos))
+	
+imprimir::[([Char],[Char])]->[Char]
+imprimir lista = do
+	let tupla = head(lista)
+	if(null(lista)) then []
+	else fst(tupla)++","++snd(tupla)++"\n"++imprimir(tail(lista))
