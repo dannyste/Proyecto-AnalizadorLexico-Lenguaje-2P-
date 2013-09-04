@@ -1,122 +1,113 @@
 ************* Analisis Lexico ************
-palabraReservada-> int
-identificador-> multiplicar
-identificador-> _
-identificador-> recursivo
-parentesisAbierto-> (
-palabraReservada-> int
-identificador-> num1
-coma-> ,
-palabraReservada-> int
-identificador-> num2
-parentesisCerrado-> )
-puntoYcoma-> ;
-palabraReservada-> void
-palabraReservada-> main
-parentesisAbierto-> (
-parentesisCerrado-> )
-llaveAbierta-> {
-palabraReservada-> int
-identificador-> num1
-coma-> ,
-identificador-> num2
-puntoYcoma-> ;
-palabraReservada-> printf
-parentesisAbierto-> (
-comillasDobles-> "
-comillasDobles-> "
-parentesisCerrado-> )
-puntoYcoma-> ;
-palabraReservada-> scanf
-parentesisAbierto-> (
-comillasDobles-> "
-comillasDobles-> "
-coma-> ,
-direccionMemoria-> &
-identificador-> num1
-parentesisCerrado-> )
-puntoYcoma-> ;
-palabraReservada-> printf
-parentesisAbierto-> (
-comillasDobles-> "
-comillasDobles-> "
-parentesisCerrado-> )
-puntoYcoma-> ;
-palabraReservada-> scanf
-parentesisAbierto-> (
-comillasDobles-> "
-comillasDobles-> "
-coma-> ,
-direccionMemoria-> &
-identificador-> num2
-parentesisCerrado-> )
-puntoYcoma-> ;
-palabraReservada-> printf
-parentesisAbierto-> (
-comillasDobles-> "
-comillasDobles-> "
-coma-> ,
-identificador-> multiplicar
-identificador-> _
-identificador-> recursivo
-parentesisAbierto-> (
-identificador-> num1
-coma-> ,
-identificador-> num2
-parentesisCerrado-> )
-parentesisCerrado-> )
-puntoYcoma-> ;
-palabraReservada-> getch
-parentesisAbierto-> (
-parentesisCerrado-> )
-puntoYcoma-> ;
-llaveCerrada-> }
-palabraReservada-> int
-identificador-> multiplicar
-identificador-> _
-identificador-> recursivo
-parentesisAbierto-> (
-palabraReservada-> int
-identificador-> num1
-coma-> ,
-palabraReservada-> int
-identificador-> num2
-parentesisCerrado-> )
-llaveAbierta-> {
-palabraReservada-> if
-parentesisAbierto-> (
-identificador-> num2
-igual-> =
-igual-> =
-Entero-> 0
-parentesisCerrado-> )
-palabraReservada-> return
-Entero-> 0
-puntoYcoma-> ;
-palabraReservada-> if
-parentesisAbierto-> (
-identificador-> num2
-mayorQue-> >
-Entero-> 0
-parentesisCerrado-> )
-llaveAbierta-> {
-identificador-> num2
-resta-> -
-resta-> -
-puntoYcoma-> ;
-palabraReservada-> return
-parentesisAbierto-> (
-identificador-> num1
-suma-> +
-identificador-> multiplicar
-identificador-> _
-identificador-> recursivo
-parentesisAbierto-> (
-identificador-> num1
-coma-> ,
-identificador-> num2
-parentesisCerrado-> )
-parentesisCerrado-> )
-puntoYcoma-> ;
-llaveCerrada-> }
+palabraReservada -> void
+identificador -> triangulo
+parentesisAbierto -> (
+palabraReservada -> int
+identificador -> lineas
+coma -> ,
+palabraReservada -> char
+identificador -> caracter
+parentesisCerrado -> )
+puntoYcoma -> ;
+palabraReservada -> void
+palabraReservada -> main
+parentesisAbierto -> (
+parentesisCerrado -> )
+llaveAbierta -> {
+identificador -> triangulo
+parentesisAbierto -> (
+Entero -> 3
+coma -> ,
+comillaSimple -> '
+identificador -> a
+comillaSimple -> '
+parentesisCerrado -> )
+puntoYcoma -> ;
+palabraReservada -> getch
+parentesisAbierto -> (
+parentesisCerrado -> )
+puntoYcoma -> ;
+llaveCerrada -> }
+palabraReservada -> void
+identificador -> triangulo
+parentesisAbierto -> (
+palabraReservada -> int
+identificador -> lineas
+coma -> ,
+palabraReservada -> char
+identificador -> caracter
+parentesisCerrado -> )
+llaveAbierta -> {
+palabraReservada -> int
+identificador -> i
+coma -> ,
+identificador -> j
+puntoYcoma -> ;
+palabraReservada -> for
+parentesisAbierto -> (
+identificador -> j
+igual -> =
+Entero -> 0
+puntoYcoma -> ;
+identificador -> j
+menorQue -> <
+identificador -> lineas
+puntoYcoma -> ;
+identificador -> j
+suma -> +
+suma -> +
+parentesisCerrado -> )
+llaveAbierta -> {
+palabraReservada -> for
+parentesisAbierto -> (
+identificador -> i
+igual -> =
+Entero -> 0
+puntoYcoma -> ;
+identificador -> i
+menorQue -> <
+identificador -> j
+puntoYcoma -> ;
+identificador -> i
+suma -> +
+suma -> +
+parentesisCerrado -> )
+palabraReservada -> printf
+parentesisAbierto -> (
+comillasDobles -> "
+comillasDobles -> "
+parentesisCerrado -> )
+puntoYcoma -> ;
+palabraReservada -> for
+parentesisAbierto -> (
+identificador -> i
+igual -> =
+identificador -> lineas
+puntoYcoma -> ;
+identificador -> i
+mayorQue -> >
+identificador -> j
+puntoYcoma -> ;
+identificador -> i
+resta -> -
+resta -> -
+parentesisCerrado -> )
+palabraReservada -> printf
+parentesisAbierto -> (
+comillasDobles -> "
+comillasDobles -> "
+coma -> ,
+identificador -> caracter
+parentesisCerrado -> )
+puntoYcoma -> ;
+palabraReservada -> printf
+parentesisAbierto -> (
+comillasDobles -> "
+comillasDobles -> "
+parentesisCerrado -> )
+puntoYcoma -> ;
+llaveCerrada -> }
+palabraReservada -> return
+puntoYcoma -> ;
+llaveCerrada -> }
 

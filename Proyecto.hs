@@ -128,7 +128,7 @@ analisis (lista,tablaSimb) = do
 	let tuplaPalabra = encuentraEspacioBlanco(lista,"")
 	let palabra = fst(tuplaPalabra)
 	let cola = snd(tuplaPalabra)
-	if(null(cola)) then []
+	if(null(cola)) then [cmpConTablaSimb(palabra,tablaSimb)]
 	else [cmpConTablaSimb(palabra,tablaSimb)]++analisis(cola,tablaSimb)
 
 cmpConTablaSimb::([Char],[([Char],[Char])])->([Char],[Char])
