@@ -15,11 +15,11 @@ main=do
    let f3 = quitarIncludes(f2)   
    let f4 = quitarTextoDeComillas(f3)
    let f5 = sacarPalabras(f4,[])
-   --let listaDef = analisis(F,tuplasTablaSimbolos)
+   let listaDef = analisis(f5,tuplasTablaSimbolos)
    print(f5)
    let str = "************* Analisis Lexico ************\n"
    writeFile "ResultadoAnalisis.txt" (str) 
-   --appendFile "ResultadoAnalisis.txt" (imprimir(listaDef) ++ "\n")   
+   appendFile "ResultadoAnalisis.txt" (imprimir(listaDef) ++ "\n")   
 
 convertirTablaEnTuplas::[Char]->[([Char],[Char])]
 convertirTablaEnTuplas lista = do
@@ -125,7 +125,7 @@ sacarSimbolos (lista,l) = do
 {- lista => una lista del archivo con las palabras separadas por comas -}
 analisis::([Char],[([Char],[Char])])->[([Char],[Char])]
 analisis (lista,tablaSimb) = do 
-	let tuplaPalabra = findFST(lista,"")
+	let tuplaPalabra = encuentraEspacioBlanco(lista,"")
 	let palabra = fst(tuplaPalabra)
 	let cola = snd(tuplaPalabra)
 	if(null(cola)) then []
@@ -137,9 +137,15 @@ cmpConTablaSimb (palabra,tablaSimbolos)= do
 	if(null(tablaSimbolos)) then ("identificador",palabra)
 	else if(palabra==snd(tupla)) then tupla
 	else cmpConTablaSimb(palabra,tail(tablaSimbolos))
+
+encuentraEspacioBlanco::([Char],[Char])->([Char],[Char])
+encuentraEspacioBlanco (lista,pal) = do
+	let palabra = pal ++ take 1 lista
+	if(head(lista)==' ') then (init palabra,tail(lista))
+	else encuentraEspacioBlanco(tail(lista),palabra)
 	
 imprimir::[([Char],[Char])]->[Char]
 imprimir lista = do
 	let tupla = head(lista)
 	if(null(lista)) then []
-	else fst(tupla)++","++snd(tupla)++"\n"++imprimir(tail(lista))
+	else fst(tupla)++" -> "++snd(tupla)++"\n"++imprimir(tail(lista))
